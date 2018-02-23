@@ -1,8 +1,48 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="{{ page.description | default: site.description | smartify }}">
-<meta name="author" content="{{ site.authors }}">
-<meta name="generator" content="Jekyll v{{ jekyll.version }}">
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Theme tester tool
+ *
+ * @package   tool_themetester
+ * @copyright  Copyright (c) 2015 Moodlerooms Inc. (http://www.moodlerooms.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+require_once(dirname(__FILE__) . '/../../../../../../../config.php');
+require_once($CFG->libdir . '/adminlib.php');
+
+$strheading = 'Theme Tester: Bootstrap 4 CSS';
+$url = new moodle_url('/admin/tool/themetester/bs_css.php');
+
+// Start setting up the page.
+$params = array();
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url($url);
+$PAGE->set_title($strheading);
+$PAGE->set_heading($strheading);
+$PAGE->requires->css('/admin/tool/themetester/bs_docs.min.css');
+admin_externalpage_setup('toolthemetester');
+
+echo $OUTPUT->header();
+
+echo html_writer::link(new moodle_url('index.php'), '&laquo; Back to index');
+echo $OUTPUT->heading($strheading);
+
+?>
 
 <title>
   {%- if page.title -%}
@@ -11,13 +51,6 @@
     {{ site.title | smartify }} · {{ site.description | smartify }}
   {%- endif -%}
 </title>
-
-<!-- Bootstrap core CSS -->
-{% if site.github %}
-<link href="{{ site.baseurl }}/dist/css/bootstrap.min.css" rel="stylesheet" integrity="{{ site.cdn.css_hash }}" crossorigin="anonymous">
-{% else %}
-<link href="{{ site.baseurl }}/dist/css/bootstrap.css" rel="stylesheet">
-{% endif %}
 
 <!-- Documentation extras -->
 {% if page.layout == "docs" %}
@@ -29,11 +62,3 @@
 
 {% include social.html %}
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-146052-10', 'getbootstrap.com');
-  ga('send', 'pageview');
-</script>
